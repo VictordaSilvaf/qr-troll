@@ -17,7 +17,7 @@ function loadAdSenseScript(client: string): Promise<void> {
 
   scriptLoading = new Promise((resolve, reject) => {
     const existing = document.querySelector<HTMLScriptElement>(
-      'script[data-adsense]',
+      'script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]',
     )
     if (existing) {
       resolve()
@@ -28,7 +28,6 @@ function loadAdSenseScript(client: string): Promise<void> {
     script.async = true
     script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${client}`
     script.crossOrigin = 'anonymous'
-    script.dataset.adsense = 'true'
     script.onload = () => resolve()
     script.onerror = () => reject(new Error('Failed to load AdSense'))
     document.head.appendChild(script)
